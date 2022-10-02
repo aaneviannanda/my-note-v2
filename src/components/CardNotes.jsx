@@ -2,6 +2,10 @@ import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { DeleteNote } from "./DeleteNote";
 import { showFormattedDate } from "../utils";
+import parser from "html-react-parser";
+import { FaFile, FaFileArchive } from "react-icons/fa";
+import PropType from "prop-types";
+
 
 export const CardNotes = ( { 
     data, 
@@ -34,7 +38,19 @@ export const CardNotes = ( {
                         }
                       }}
                 >
-                    <span>{statusNotes === "note" ? "Set to Archive" : "Set Note"}</span>
+                    <span className="flex justify-center items-center">
+                        {statusNotes === "note" ? (
+                            <>
+                            <FaFileArchive />
+                            <span className="px-2">Archive</span>
+                            </>
+                        ) : (
+                            <>
+                            <FaFile />
+                            <span className="px-2">Unarchive</span>
+                            </>
+                        )}
+                    </span>
                 </button>
                 <DeleteNote 
                     id={id}
@@ -45,12 +61,22 @@ export const CardNotes = ( {
                     statusNotes={statusNotes}
                 />
                 </div>
-                <h1 className="mt-4 px-6 text-center font-bold text-2xl" onClick={() => navigate(`/notes/${id}`) }>{title}</h1>
+                <h1 className="mt-4 px-6 text-center font-bold text-2xl cursor-pointer" onClick={() => navigate(`/notes/${id}`) }>{title}</h1>
                 <div className="flex justify-between my-5">
                 <p className="flex text-red-700 items-center">{showFormattedDate(createdAt)}</p>
                 </div>
-                <p className="text-justify">{body}</p>
+                <p className="text-justify">{parser(body)}</p>
             </div>
         </>
     );
 };
+
+CardNotes.propType = {
+    data: PropType.object.isRequired, 
+    onDelete: PropType.func.isRequired, 
+    onChangeArchiveStatus: PropType.func.isRequired, 
+    statusNotes: PropType.string.isRequired,
+    setData: PropType.func.isRequired,
+    getActiveNotes: PropType.func.isRequired,
+    getArchivedNotes: PropType.func.isRequired,
+}

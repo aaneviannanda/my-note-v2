@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import { ViewNotes } from './pages/ViewNotes';
 import { ArchivePages } from './pages/ArchivePages';
 import { DetailPages } from './pages/DetailPages';
+import { PageNotFound } from './components/PageNotFound';
+import { AddNotePages } from './pages/AddNotePages';
 
 const App = () => {
   // inisiasi variabel paths
@@ -12,7 +14,7 @@ const App = () => {
     },
     {
       path: '/notes/new',
-      element: <h1>Add Note Page</h1>
+      element: <AddNotePages />
     },
     {
       path: '/notes/:id',
@@ -24,7 +26,7 @@ const App = () => {
     },
     {
       path: '/*',
-      element: <h1>404 Page Not Found</h1>
+      element: <PageNotFound />
     }
   ]
 

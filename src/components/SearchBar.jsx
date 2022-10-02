@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
+import PropType from "prop-types";
 
-export const SearchBar = ({ search, onSearch }) => {
+export const SearchBar = ({ title, setSearchParamsHandler }) => {
   return (
     <>
       <div className="w-full mt-6 px-6">
@@ -10,15 +11,17 @@ export const SearchBar = ({ search, onSearch }) => {
             className="w-full text-xl p-3 rounded-md border-2 border-violet-200"
             placeholder="Search by title.."
             name="search"
-            value={search}
-            onChange={(event) => {
-                console.log(event.target.value);
-                onSearch(event.target.value)
-            }}
+            value={title}
+            onChange={(event) => setSearchParamsHandler(event.target.value)}
             maxLength={50}
           />
         </form>
       </div>
     </>
   )
+}
+
+SearchBar.propTypes = {
+  title: PropType.string.isRequired,
+  setSearchParamsHandler: PropType.func.isRequired,
 }

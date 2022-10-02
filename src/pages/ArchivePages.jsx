@@ -4,9 +4,11 @@ import { getArchivedNotes , deleteNote, unarchiveNote } from "../utils/local-dat
 import { NavBar } from "../components/NavBar";
 import { SearchBar } from "../components/SearchBar";
 import { CardNotes } from "../components/CardNotes";
+import { NoteNotFound } from "../components/NoteNotFound";
 
 export const ArchivePages = () => {
-  const [data, setData] = useState([]);
+  const archiveNote = getArchivedNotes();
+  const [data, setData] = useState(archiveNote);
   const [statusNotes, setStatusNotes] = useState("");
   const [SearchParams, setSearchParams] = useSearchParams();
 
@@ -18,17 +20,16 @@ export const ArchivePages = () => {
 
   useEffect( () => {
     setStatusNotes("archived");
+    if (!title) {
       setData(getArchivedNotes());
-    // if (!title) {
-    //   // setData(getArchiveNotes());
-    // } else {
-    //   setData (
-    //     getActiveNotes().filter( (dataNote) => 
-    //       dataNote.title.toLocaleLowerCase().includes(title.toLocaleLowerCase())
-    //     )
-    //   );
-    // }
-  },[data] );
+    } else {
+      setData (
+        getArchivedNotes().filter( (dataNote) => 
+          dataNote.title.toLowerCase().includes(title.toLowerCase())
+        )
+      );
+    }
+  },[title] );
 
   return (
     <div className="font-poppins">
@@ -37,7 +38,7 @@ export const ArchivePages = () => {
         title={title}
         setSearchParamsHandler={setSearchParamsHandler}
       />
-      <div className="grid grid-cols-3 gap-6 px-6 mt-4">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-4 relative px-6 mt-4">
           {!!data && data.length !== 0 ? (
             data.map((item, index) => (
               <CardNotes
@@ -51,8 +52,8 @@ export const ArchivePages = () => {
               />
             ))
           ) : (
-            <>data not found</>
-          )};
+              <NoteNotFound className="absolute top-60 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+          )}
       </div>
     </div>
   );
