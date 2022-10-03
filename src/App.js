@@ -5,7 +5,7 @@ import { DetailPages } from './pages/DetailPages';
 import { PageNotFound } from './components/PageNotFound';
 import { AddNotePages } from './pages/AddNotePages';
 
-const App = () => {
+export const App = () => {
   // inisiasi variabel paths
   const paths = [
     {
@@ -38,5 +38,3 @@ const App = () => {
     </>
   );
 }
-
-export default App;

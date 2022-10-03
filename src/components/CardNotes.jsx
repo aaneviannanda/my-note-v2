@@ -21,11 +21,11 @@ export const CardNotes = ( {
 
     return (
         <>
-            <div className="relative my-5 p-7 flex flex-col bg-teal-100 rounded-xl overflow-hidden drop-shadow-lg">
+            <div className="relative my-5 p-7 flex flex-col bg-teal-100 rounded-xl overflow-hidden drop-shadow-lg hover:bg-teal-200 hover:shadow-lg">
                 <div className="flex justify-between mx-3">
                 <button
                     className={`border-none text-white text-base rounded-md px-5 py-2 ${
-                        statusNotes === "note" ? "bg-yellow-400 hover:bg-yellow-300" : "bg-teal-400 hover:bg-teal-200"
+                        statusNotes === "note" ? "bg-yellow-400 hover:bg-yellow-300 hover:text-black" : "bg-teal-400 hover:bg-red-400 hover:text-black"
                     }`} 
                     onClick={(event) => {
                         event.stopPropagation();
@@ -38,7 +38,7 @@ export const CardNotes = ( {
                         }
                       }}
                 >
-                    <span className="flex justify-center items-center">
+                    <span className="flex justify-center items-center  group-hover:text-black">
                         {statusNotes === "note" ? (
                             <>
                             <FaFileArchive />
