@@ -1,28 +1,35 @@
-import React from 'react';
-import { FaTrash } from 'react-icons/fa';
-import PropType from 'prop-types';
+import React from "react";
+import { FaTrash } from "react-icons/fa";
+import PropType from "prop-types";
+import { deleteNote } from "../utils/network-data";
 
 export const DeleteNote = ( { 
   id, 
-  onDelete,
-  setdata,
   getActiveNotes,
   getArchivedNotes,
   statusNotes,
 } ) => {
+  const handleDeleteNote = async (id) => {
+    try {
+      if (statusNotes === "note") {
+        await deleteNote(id);
+        getActiveNotes();
+      } else {
+        await deleteNote(id);
+        getArchivedNotes();
+      }
+    } catch (error) {
+      throw new Error(`Error: ${error}`);
+    }
+  };
+
   return (
     <>
       <button
         className="px-5 py-2 rounded-md group bg-red-400 hover:bg-red-300"
         onClick={(event) => {
           event.stopPropagation();
-          if (statusNotes === "note"){
-            onDelete(id)
-            setdata(getActiveNotes);
-          } else {
-            onDelete(id)
-            setdata(getArchivedNotes);
-          }
+          handleDeleteNote(id);
         }}
       >
         <FaTrash className="text-white text-center font-bold group-hover:text-black"/>
@@ -33,9 +40,7 @@ export const DeleteNote = ( {
 
 DeleteNote.propType = {
   id: PropType.string.isRequired,
-  onDelete: PropType.func.isRequired,
-  setdata: PropType.func.isRequired,
-  getActiveNotes: PropType.func.isRequired,
-  getArchivedNotes: PropType.func.isRequired,
+  getActiveNotes: PropType.func,
+  getArchivedNotes: PropType.func,
   statusNotes: PropType.string.isRequired,
 }

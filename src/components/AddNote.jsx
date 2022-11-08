@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 
@@ -11,7 +11,7 @@ export const AddNote = () => {
                 <div className="relative group">
                     <button
                         className="w-12 h-12 bg-pink-500 hover:bg-pink-300 rounded-xl cursor-pointer"
-                        onClick={() => navigate("/notes/new")}
+                        onClick={() => navigate("/new")}
                     >
                         <span className="text-white flex justify-center">
                         <FaPlus />
